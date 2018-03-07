@@ -12,6 +12,7 @@ var svgstore = require("gulp-svgstore");
 var svgmin = require('gulp-svgmin');
 var posthtml = require("gulp-posthtml");
 var include = require("posthtml-include");
+var sourcemaps = require('gulp-sourcemaps');
 var server = require("browser-sync").create();
 var run = require("run-sequence");
 var del = require("del");
@@ -23,6 +24,7 @@ gulp.task("clean", function () {
 
 gulp.task("style", function() {
   gulp.src("src/less/style.less")
+    .pipe(sourcemaps.init())
     .pipe(plumber())
     .pipe(less())
     .pipe(postcss([
@@ -31,6 +33,7 @@ gulp.task("style", function() {
     .pipe(gulp.dest("build/css"))
     .pipe(minify())
     .pipe(rename("style.min.css"))
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest("build/css"))
     .pipe(server.stream());
 });
@@ -97,7 +100,7 @@ gulp.task("build", function (done) {
 gulp.task("serve", function() {
   server.init({
     server: "build/",
-  });
+  }) ;
 
   gulp.watch("src/less/**/*.less", ["style"]);
   gulp.watch("src/*.html", ["posthtml"]);
