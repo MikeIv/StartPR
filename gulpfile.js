@@ -12,6 +12,7 @@ var svgstore = require("gulp-svgstore");
 var svgmin = require('gulp-svgmin');
 var posthtml = require("gulp-posthtml");
 var include = require("posthtml-include");
+var gcmq = require('gulp-group-css-media-queries');
 var sourcemaps = require('gulp-sourcemaps');
 var server = require("browser-sync").create();
 var run = require("run-sequence");
